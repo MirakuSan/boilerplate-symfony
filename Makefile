@@ -68,8 +68,11 @@ sh: ## Connect to the FrankenPHP container
 bash: ## Connect to the FrankenPHP container via bash so up and down arrows go to previous commands
 	@$(PHP_CONT) bash
 
+ps: ## List the containers, you can pass the parameter "c=" to use docker-color-output see: https://github.com/devemio/docker-color-output, eg: make ps c='| docker-color-output'
 ps:
-	@$(DOCKER_COMP) ps
+	@$(eval c ?=)
+	@$(DOCKER_COMP) ps -a --format 'table {{.Name}}\t\t{{.Service}}\t\t{{.Status}}\t\t{{.Ports}}' $(c)
+
 
 open: ## Open the project in the browser
 	@echo "${GREEN}Opening https://$(SERVER_NAME)"
