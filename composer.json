@@ -1,5 +1,5 @@
 {
-    "name": "symfony/skeleton",
+    "name": "mirakusan/boilerplate-symfony",
     "type": "project",
     "license": "MIT",
     "description": "A minimal Symfony project recommended to create bare bones applications",
@@ -9,6 +9,9 @@
         "php": ">=8.3.12",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "doctrine/dbal": "^4.1",
+        "doctrine/doctrine-bundle": "^2.13",
+        "doctrine/orm": "^3.2",
         "runtime/frankenphp-symfony": "^0.2.0",
         "symfony/console": "7.1.*",
         "symfony/dotenv": "7.1.*",
@@ -16,6 +19,21 @@
         "symfony/framework-bundle": "7.1.*",
         "symfony/runtime": "7.1.*",
         "symfony/yaml": "7.1.*"
+    }
+    ,
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.57",
+        "justinrainbow/json-schema": "^6.0",
+        "phparkitect/phparkitect": "^0.3.33",
+        "phpstan/phpstan": "^1.11",
+        "phpunit/phpunit": "^9.5",
+        "roave/security-advisories": "dev-latest",
+        "symfony/browser-kit": "^7.1",
+        "symfony/css-selector": "^7.1",
+        "symfony/phpunit-bridge": "^7.1",
+        "symfony/stopwatch": "^7.1",
+        "symfony/web-profiler-bundle": "^7.1",
+        "vimeo/psalm": "^5.24"
     },
     "config": {
         "allow-plugins": {
