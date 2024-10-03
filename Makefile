@@ -11,11 +11,31 @@ PHP_CONT = $(DOCKER_COMP) exec php
 PHP      = $(PHP_CONT) php
 COMPOSER = $(PHP_CONT) composer
 SYMFONY  = $(PHP) bin/console
+SSL_DIR  = frankenphp/certs
+
+# Colors
+GREEN  := $(shell tput -Txterm setaf 2)
+RED    := $(shell tput -Txterm setaf 1)
+YELLOW := $(shell tput -Txterm setaf 3)
+BLUE   := $(shell tput -Txterm setaf 4)
+RESET  := $(shell tput -Txterm sgr0)
 
 # Misc
 .DEFAULT_GOAL = help
 .PHONY        : help build up start kill down logs sh composer vendor sf cc test open ps db-create db-update db-reset
-.PHONY		  : php-cs-fixer php-cs-fixer-apply phpstan phpsalm phparkitect deptrac
+.PHONY		  : php-cs-fixer php-cs-fixer-apply phpstan phpsalm phparkitect deptrac qa
+
+## —— 🔥 Project ——
+.env.local: .env
+	@if [ -f .env.local ]; then \
+		echo '${YELLOW}The ".env" has changed. You may want to update your copy .env.local accordingly (this message will only appear once).'; \
+		touch .env.local; \
+		exit 1; \
+	else \
+		cp .env .env.local; \
+		echo "${YELLOW}Modify it according to your needs and rerun the command."; \
+		exit 1; \
+	fi
 
 ## —— 🎵 🐳 The Symfony Docker Makefile 🐳 🎵 ——————————————————————————————————
 help: ## Outputs this help screen
@@ -24,12 +44,13 @@ help: ## Outputs this help screen
 ##
 ## —— Docker 🐳 ————————————————————————————————————————————————————————————————
 build: ## Builds the Docker images
+build: compose.override.yaml
 	@$(DOCKER_COMP) build --pull --no-cache
 
 up: ## Start the docker hub in detached mode (no logs)
 	@$(DOCKER_COMP) up --detach
 
-start: build up ## Build and start the containers
+start: ssl build up open ## Build and start the containers
 
 kill:
 	@$(DOCKER_COMP) kill
@@ -62,10 +83,10 @@ test: ## Start tests with phpunit, pass the parameter "c=" to add options to php
 ## —— Composer 🧙 ——————————————————————————————————————————————————————————————
 composer: ## Run composer, pass the parameter "c=" to run a given command, example: make composer c='req symfony/orm-pack'
 	@$(eval c ?=)
-	@$(COMPOSER) $(c)
+	@$(COMPOSER) $(c) --ansi
 
 vendor: ## Install vendors according to the current composer.lock file
-vendor: c=install --prefer-dist --no-dev --no-progress --no-scripts --no-interaction
+vendor: c=install --prefer-dist --no-progress --no-interaction --ignore-platform-req=php
 vendor: composer
 
 ##
@@ -88,24 +109,20 @@ db-reset: db-create db-update ## Reset the database
 
 ##
 ## —— ✨ Code Quality ——————————————————————————————————————————————————————————
+qa: ## Run all code quality tools
+qa: php-cs-fixer phpstan psalm phparkitect
+
 php-cs-fixer: ## PhpCsFixer (https://cs.symfony.com/)
-	@$(PHP_CONT) vendor/bin/php-cs-fixer fix --using-cache=no --verbose --diff --dry-run
+	@$(PHP_CONT) vendor/bin/php-cs-fixer fix --using-cache=no --verbose --diff --dry-run --ansi
 
 php-cs-fixer-apply: ## Applies PhpCsFixer fixes
-	@$(PHP_CONT) vendor/bin/php-cs-fixer fix --using-cache=no --verbose --diff
+	@$(PHP_CONT) vendor/bin/php-cs-fixer fix --using-cache=no --verbose --diff --ansi
 
 phpstan: ## Run phpstan static analysis
-	@$(PHP_CONT) vendor/bin/phpstan analyse --memory-limit=-1
+	@$(PHP_CONT) vendor/bin/phpstan analyse --memory-limit=-1 --ansi
 
 psalm: ## Run psalm static analysis
 	@$(PHP_CONT) vendor/bin/psalm --show-info=true
 
 phparkitect: ## Run phparkitect static analysis
 	@$(PHP_CONT) vendor/bin/phparkitect check --config=phparkitect.php --ansi
-
-deptrac: ## Run code depedencies static analysis
-	@echo "\n${YELLOW}Checking Bounded contexts...${RESET}"
-	@$(PHP_CONT) vendor/bin/deptrac analyze --fail-on-uncovered --report-uncovered --no-progress --cache-file .deptrac_bc.cache --config-file deptrac_bc.yaml
-
-	@echo "\n${YELLOW}Checking Hexagonal layers...${RESET}"
-	@$(PHP_CONT) vendor/bin/deptrac analyze --fail-on-uncovered --report-uncovered --no-progress --cache-file .deptrac_hexa.cache --config-file deptrac_hexa.yaml
