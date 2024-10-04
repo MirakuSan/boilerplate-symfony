@@ -22,7 +22,7 @@ RESET  := $(shell tput -Txterm sgr0)
 
 # Misc
 .DEFAULT_GOAL = help
-.PHONY        : help build up start kill down logs sh composer vendor sf cc test open ps db-create db-update db-reset
+.PHONY        : help build rebuild up start kill down logs sh composer vendor sf cc test open ps db-create db-update db-reset
 .PHONY		  : php-cs-fixer php-cs-fixer-apply phpstan phpsalm phparkitect deptrac qa
 
 ## —— 🔥 Project ——
@@ -37,20 +37,36 @@ RESET  := $(shell tput -Txterm sgr0)
 		exit 1; \
 	fi
 
-## —— 🎵 🐳 The Symfony Docker Makefile 🐳 🎵 ——————————————————————————————————
+## —— 🎵 🐳 The Symfony Boilerplate Makefile 🐳 🎵 ——————————————————————————————————
 help: ## Outputs this help screen
 	@grep -E '(^[a-z0-9A-Z_-]+:.*?##.*$$)|(^##)' Makefile | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
 
 ##
 ## —— Docker 🐳 ————————————————————————————————————————————————————————————————
+compose.override.yaml: compose.override.yaml.dist
+	@if [ -f compose.override.yaml ]; then \
+		echo '${YELLOW}/!!!\ "compose.override.yaml.dist" has changed. You may want to update your copy accordingly (this message will only appear once).'; \
+		touch compose.override.yaml; \
+		exit 1; \
+	else \
+		cp compose.override.yaml.dist compose.override.yaml; \
+		echo "compose.override.yaml.dist compose.override.yaml"; \
+		echo "${YELLOW}Modify it according to your needs and rerun the command."; \
+		exit 1; \
+	fi
+
 build: ## Builds the Docker images
-build: compose.override.yaml
+build: compose.override.yaml .env.local
+	@$(DOCKER_COMP) build --pull
+
+rebuild: ## Rebuilds the Docker images (without cache)
+rebuild: compose.override.yaml
 	@$(DOCKER_COMP) build --pull --no-cache
 
 up: ## Start the docker hub in detached mode (no logs)
 	@$(DOCKER_COMP) up --detach
 
-start: ssl build up open ## Build and start the containers
+start: build up vendor open ## Build and start the containers
 
 kill:
 	@$(DOCKER_COMP) kill
@@ -122,7 +138,7 @@ php-cs-fixer-apply: ## Applies PhpCsFixer fixes
 	@$(PHP_CONT) vendor/bin/php-cs-fixer fix --using-cache=no --verbose --diff --ansi
 
 phpstan: ## Run phpstan static analysis
-	@$(PHP_CONT) vendor/bin/phpstan analyse --memory-limit=-1 --ansi
+	@$(PHP_CONT) vendor/bin/phpstan analyse --configuration=phpstan.neon --memory-limit=-1 --ansi
 
 psalm: ## Run psalm static analysis
 	@$(PHP_CONT) vendor/bin/psalm --show-info=true

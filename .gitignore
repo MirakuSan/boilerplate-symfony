@@ -1,4 +1,6 @@
 /frankenphp/certs
+/.idea
+/compose.override.yaml
 
 ###> symfony/framework-bundle ###
 /.env.local
@@ -16,7 +18,6 @@
 ###< friendsofphp/php-cs-fixer ###
 
 ###> phpstan/phpstan ###
-phpstan.neon
 ###< phpstan/phpstan ###
 
 ###> symfony/phpunit-bridge ###
