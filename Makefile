@@ -28,12 +28,13 @@ RESET  := $(shell tput -Txterm sgr0)
 ## —— 🔥 Project ——
 .env.local: .env
 	@if [ -f .env.local ]; then \
-		echo '${YELLOW}The ".env" has changed. You may want to update your copy .env.local accordingly (this message will only appear once).'; \
+		echo '${YELLOW}The ".env" has changed. You may want to update your copy .env.local accordingly (this message will only appear once).${RESET}'; \
 		touch .env.local; \
 		exit 1; \
 	else \
 		cp .env .env.local; \
-		echo "${YELLOW}Modify it according to your needs and rerun the command."; \
+		echo "${YELLOW}The .env.local file has been created.${RESET}"; \
+		echo "${YELLOW}Modify it according to your needs and rerun the command.${RESET}"; \
 		exit 1; \
 	fi
 
@@ -45,13 +46,13 @@ help: ## Outputs this help screen
 ## —— Docker 🐳 ————————————————————————————————————————————————————————————————
 compose.override.yaml: compose.override.yaml.dist
 	@if [ -f compose.override.yaml ]; then \
-		echo '${YELLOW}/!!!\ "compose.override.yaml.dist" has changed. You may want to update your copy accordingly (this message will only appear once).'; \
+		echo '${YELLOW}/!!!\ "compose.override.yaml.dist" has changed. You may want to update your copy accordingly (this message will only appear once).${RESET}'; \
 		touch compose.override.yaml; \
 		exit 1; \
 	else \
 		cp compose.override.yaml.dist compose.override.yaml; \
-		echo "compose.override.yaml.dist compose.override.yaml"; \
-		echo "${YELLOW}Modify it according to your needs and rerun the command."; \
+		echo "${YELLOW}The compose.override.yaml file has been created.${RESET}"; \
+		echo "${YELLOW}Modify it according to your needs and rerun the command.${RESET}"; \
 		exit 1; \
 	fi
 
