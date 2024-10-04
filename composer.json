@@ -27,7 +27,6 @@
         "phparkitect/phparkitect": "^0.3.33",
         "phpstan/phpstan": "^1.11",
         "phpunit/phpunit": "^9.5",
-        "roave/security-advisories": "dev-latest",
         "symfony/browser-kit": "^7.1",
         "symfony/css-selector": "^7.1",
         "symfony/maker-bundle": "^1.61",

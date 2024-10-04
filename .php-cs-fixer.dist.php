@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the Boilerplate Symfony project.
+ *
+ * Copyright (c) 2024-present MirakuSan
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
@@ -73,7 +82,13 @@ $rules = [
 ];
 
 $finder = Finder::create()
-    ->in(__DIR__.'/src')
+    ->in(
+        [
+            __DIR__.'/src',
+            __DIR__.'/config',
+            __DIR__.'/tests',
+        ]
+    )
     ->notPath('bootstrap.php')
 ;
 
@@ -82,4 +97,4 @@ return (new Config())
     ->setRules($rules)
     ->setRiskyAllowed(true)
     ->setParallelConfig(ParallelConfigFactory::detect())
-    ;
+;

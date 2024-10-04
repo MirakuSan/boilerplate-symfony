@@ -1,0 +1,9 @@
+parameters:
+    checkMissingIterableValueType: true
+    checkAlwaysTrueStrictComparison: true
+    checkDynamicProperties: true
+    level: max
+    paths:
+        - config/
+        - src/
+        - tests/
