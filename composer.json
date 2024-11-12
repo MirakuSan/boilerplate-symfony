@@ -25,7 +25,7 @@
         "friendsofphp/php-cs-fixer": "^3.57",
         "justinrainbow/json-schema": "^6.0",
         "phparkitect/phparkitect": "^0.3.33",
-        "phpstan/phpstan": "^1.11",
+        "phpstan/phpstan": "^2.0",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "^7.1",
         "symfony/css-selector": "^7.1",
