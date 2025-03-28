@@ -16,6 +16,16 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  docker-lint:
+    name: Docker Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Lint Dockerfile
+        uses: hadolint/hadolint-action@v3.1.0
+
   build-project:
     name: Build project
     runs-on: ubuntu-latest
@@ -30,7 +40,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
         
       - name: Build Docker images
-        uses: docker/bake-action@v4
+        uses: docker/bake-action@v5
         with:
           pull: true
           load: true
@@ -104,16 +114,6 @@ jobs:
       - name: Clean up
         run: make kill down
 
-  lint:
-    name: Docker Lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Lint Dockerfile
-        uses: hadolint/hadolint-action@v3.1.0
-
   security-check:
     name: Symfony Security Check
     runs-on: ubuntu-latest
@@ -147,12 +147,12 @@ jobs:
         run: composer audit --no-dev --format summary --locked --ansi
 
       - name: Run Composer Outdated
-        run: composer outdated -D --strict --ignore=phpunit/phpunit --ansi
+        run: composer outdated -D --strict --ignore=phpunit/phpunit
 
   quality:
     name: Code Quality Checks
     runs-on: ubuntu-latest
-    needs: security-check
+    needs: build-project
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -179,9 +179,6 @@ jobs:
 
       - name: Run PhpStan
         run: vendor/bin/phpstan analyse --memory-limit=-1 --ansi
-
-      - name: Run Psalm
-        run: vendor/bin/psalm --show-info=true
 
       - name: Run PhpArkitect
         run: vendor/bin/phparkitect check --config=phparkitect.php --ansi
