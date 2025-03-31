@@ -4618,16 +4618,16 @@
         },
         {
             "name": "phparkitect/phparkitect",
-            "version": "0.5.2",
+            "version": "0.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phparkitect/arkitect.git",
-                "reference": "3bcc97956f8b8b37f2fe26f0b0b4877e918786c8"
+                "reference": "e826a47630b1f6906dbf1bf0f2b207b3ce0f83d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phparkitect/arkitect/zipball/3bcc97956f8b8b37f2fe26f0b0b4877e918786c8",
-                "reference": "3bcc97956f8b8b37f2fe26f0b0b4877e918786c8",
+                "url": "https://api.github.com/repos/phparkitect/arkitect/zipball/e826a47630b1f6906dbf1bf0f2b207b3ce0f83d4",
+                "reference": "e826a47630b1f6906dbf1bf0f2b207b3ce0f83d4",
                 "shasum": ""
             },
             "require": {
@@ -4685,7 +4685,7 @@
             "description": "Enforce architectural constraints in your PHP applications",
             "support": {
                 "issues": "https://github.com/phparkitect/arkitect/issues",
-                "source": "https://github.com/phparkitect/arkitect/tree/0.5.2"
+                "source": "https://github.com/phparkitect/arkitect/tree/0.5.3"
             },
             "funding": [
                 {
@@ -4697,7 +4697,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-03-17T21:23:01+00:00"
+            "time": "2025-03-30T21:05:24+00:00"
         },
         {
             "name": "phpstan/phpdoc-parser",
