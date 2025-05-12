@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fdfe430c9035328d655d931010bfb5a4",
+    "content-hash": "172e55993f9b354db7cedef5b5b20138",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -2226,16 +2226,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v2.5.0",
+            "version": "v2.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "8ce1acd9842abe0e9b4c4a0bd3f259859516c018"
+                "reference": "62d5c38c7af6280d8605b725364680838b475641"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/8ce1acd9842abe0e9b4c4a0bd3f259859516c018",
-                "reference": "8ce1acd9842abe0e9b4c4a0bd3f259859516c018",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/62d5c38c7af6280d8605b725364680838b475641",
+                "reference": "62d5c38c7af6280d8605b725364680838b475641",
                 "shasum": ""
             },
             "require": {
@@ -2274,7 +2274,7 @@
             "description": "Composer plugin for Symfony",
             "support": {
                 "issues": "https://github.com/symfony/flex/issues",
-                "source": "https://github.com/symfony/flex/tree/v2.5.0"
+                "source": "https://github.com/symfony/flex/tree/v2.5.1"
             },
             "funding": [
                 {
@@ -2290,7 +2290,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-03-03T07:50:46+00:00"
+            "time": "2025-05-10T14:05:03+00:00"
         },
         {
             "name": "symfony/framework-bundle",
@@ -4622,16 +4622,16 @@
         },
         {
             "name": "phparkitect/phparkitect",
-            "version": "0.5.4",
+            "version": "0.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phparkitect/arkitect.git",
-                "reference": "25cc50ae1cbca89dd5291d324a6f3ff26f3ee007"
+                "reference": "e7a9b6af7ea6409fff6c6e426e7272b17c4ffbed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phparkitect/arkitect/zipball/25cc50ae1cbca89dd5291d324a6f3ff26f3ee007",
-                "reference": "25cc50ae1cbca89dd5291d324a6f3ff26f3ee007",
+                "url": "https://api.github.com/repos/phparkitect/arkitect/zipball/e7a9b6af7ea6409fff6c6e426e7272b17c4ffbed",
+                "reference": "e7a9b6af7ea6409fff6c6e426e7272b17c4ffbed",
                 "shasum": ""
             },
             "require": {
@@ -4689,7 +4689,7 @@
             "description": "Enforce architectural constraints in your PHP applications",
             "support": {
                 "issues": "https://github.com/phparkitect/arkitect/issues",
-                "source": "https://github.com/phparkitect/arkitect/tree/0.5.4"
+                "source": "https://github.com/phparkitect/arkitect/tree/0.6.0"
             },
             "funding": [
                 {
@@ -4701,7 +4701,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-04-28T21:01:22+00:00"
+            "time": "2025-05-09T12:00:13+00:00"
         },
         {
             "name": "phpstan/phpdoc-parser",
