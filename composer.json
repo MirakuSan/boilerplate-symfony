@@ -13,12 +13,12 @@
         "doctrine/doctrine-bundle": "^2.13",
         "doctrine/orm": "^3.2",
         "runtime/frankenphp-symfony": "^0.2.0",
-        "symfony/console": "7.2.*",
-        "symfony/dotenv": "7.2.*",
+        "symfony/console": "7.3.*",
+        "symfony/dotenv": "7.3.*",
         "symfony/flex": "^2",
-        "symfony/framework-bundle": "7.2.*",
-        "symfony/runtime": "7.2.*",
-        "symfony/yaml": "7.2.*"
+        "symfony/framework-bundle": "7.3.*",
+        "symfony/runtime": "7.3.*",
+        "symfony/yaml": "7.3.*"
     }
     ,
     "require-dev": {
